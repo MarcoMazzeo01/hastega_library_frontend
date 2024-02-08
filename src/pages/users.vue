@@ -3,11 +3,10 @@
 export default {
   data() {
     return {
-      title: "Login",
+      title: "Utenti",
     };
   },
 
-  mounted() {},
   // components: {
   //   MyComponent,
   // },
@@ -16,7 +15,7 @@ export default {
 
 <template>
   <h1>{{ title }}</h1>
-  test test testtt
+  hihih
 </template>
 
 <style lang="scoped"></style>
