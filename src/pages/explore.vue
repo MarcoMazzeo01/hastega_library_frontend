@@ -1,5 +1,4 @@
 <script>
-// import MyComponent from
 import axios from "axios";
 
 export default {
@@ -42,7 +41,10 @@ export default {
   <h1>{{ title }}</h1>
   <ul v-for="book in this.response">
     <li>
-      {{ book.title }}<br />
+      <router-link :to="{ name: 'book', params: { bookId: book.id } }">{{
+        book.title
+      }}</router-link>
+      <br />
       {{ book.author }}<br />
       {{ book.isbn }}<br />
       {{ book.plot }}
