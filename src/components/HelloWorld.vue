@@ -1,11 +1,20 @@
-<script setup>
-defineProps({
-  msg: String,
-});
+<script>
+// import MyComponent from
+export default {
+  data() {
+    return {
+      title: "test",
+    };
+  },
+
+  // components: {
+  //   MyComponent,
+  // },
+};
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
+  <h1>{{ title }}</h1>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scoped"></style>
