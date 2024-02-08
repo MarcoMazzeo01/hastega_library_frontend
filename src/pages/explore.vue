@@ -21,7 +21,7 @@ export default {
             )
             .then((gResponse) => {
               var volumeInfo = gResponse.data.volumeInfo;
-              console.log(volumeInfo);
+
               element.title = volumeInfo.title;
               element.author = volumeInfo.authors.toString();
               element.isbn = volumeInfo.industryIdentifiers[1].identifier;
@@ -44,6 +44,7 @@ export default {
       <router-link :to="{ name: 'book', params: { bookId: book.id } }">{{
         book.title
       }}</router-link>
+      <button @click="">Aggiungi a libreria</button>
       <br />
       {{ book.author }}<br />
       {{ book.isbn }}<br />
