@@ -1,0 +1,54 @@
+<script>
+// import MyComponent from
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      title: "Esplora",
+      response: "",
+    };
+  },
+
+  mounted() {
+    axios.get("http://127.0.0.1:8000/api/books").then((response) => {
+      this.response = response.data;
+
+      this.response.forEach((element) => {
+        if (element.google_id) {
+          axios
+            .get(
+              "https://www.googleapis.com/books/v1/volumes/" + element.google_id
+            )
+            .then((gResponse) => {
+              var volumeInfo = gResponse.data.volumeInfo;
+              console.log(volumeInfo);
+              element.title = volumeInfo.title;
+              element.author = volumeInfo.authors.toString();
+              element.isbn = volumeInfo.industryIdentifiers[1].identifier;
+              element.plot = volumeInfo.description;
+            });
+        }
+      });
+    });
+  },
+  // components: {
+  //   MyComponent,
+  // },
+};
+</script>
+
+<template>
+  <h1>{{ title }}</h1>
+  <ul v-for="book in this.response">
+    <li>
+      {{ book.title }}<br />
+      {{ book.author }}<br />
+      {{ book.isbn }}<br />
+      {{ book.plot }}
+    </li>
+    <hr />
+  </ul>
+</template>
+
+<style lang="scoped"></style>
