@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import users from "../pages/users.vue";
-import library from "../pages/library.vue";
+import explore from "../pages/explore.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -11,9 +11,9 @@ const router = createRouter({
       component: users,
     },
     {
-      path: "/library",
-      name: "library",
-      component: library,
+      path: "/explore",
+      name: "explore",
+      component: explore,
     },
   ],
 });

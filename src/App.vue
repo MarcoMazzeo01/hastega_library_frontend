@@ -14,7 +14,7 @@ export default {
 
 <template>
   <HelloWorld msg="Hello" />
-  <p><router-link to="/library">library</router-link></p>
+  <p><router-link to="/explore">esplora</router-link></p>
   <router-link to="/">users</router-link>
   <router-view></router-view>
 </template>
