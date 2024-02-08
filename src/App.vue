@@ -13,8 +13,8 @@ export default {
 </script>
 
 <template>
-  <HelloWorld msg="Hello" />
-  <p><router-link to="/explore">esplora</router-link></p>
+  <!-- <HelloWorld msg="Hello" /> -->
+  <router-link to="/explore">esplora</router-link> |
   <router-link to="/">users</router-link>
   <router-view></router-view>
 </template>
