@@ -8,5 +8,4 @@ import { router } from "./router/router.js";
 const App = createApp(_App);
 App.use(VueCookies, { expires: "1W" });
 App.use(router);
-//App.provide("$cookies", VueCookies);
 App.mount("#app");
