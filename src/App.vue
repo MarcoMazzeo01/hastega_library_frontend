@@ -1,5 +1,5 @@
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+//import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
   data() {
@@ -7,7 +7,7 @@ export default {
   },
 
   components: {
-    HelloWorld,
+    //HelloWorld,
   },
 };
 </script>
