@@ -12,6 +12,24 @@ export default {
   //   MyComponent,
   // },
 
+  methods: {
+    saveBook(bookId) {
+      var userId = this.$cookies.get("userSession");
+
+      axios
+        .post("http://127.0.0.1:8000/api/library", {
+          userId: userId,
+          bookId: bookId,
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+  },
+
   props: ["bookData"],
   mounted() {
     axios
