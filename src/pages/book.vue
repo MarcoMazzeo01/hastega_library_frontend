@@ -43,7 +43,15 @@ export default {
 <template>
   <h1>{{ title }}</h1>
   <h3>{{ this.currentBook.title }}</h3>
-  <button @click="">Aggiungi a libreria</button> {{ this.currentBook.author }};
+  <button @click="saveBook(this.currentBook.id)">Aggiungi a libreria</button>
+  {{ this.currentBook.author }} -
+  <span
+    >Letto {{ this.currentBook.reads }}
+    <span v-if="this.currentBook.reads > 1 || this.currentBook.reads == 0"
+      >volte</span
+    >
+    <span v-else>volta</span>
+  </span>
   <p>{{ this.currentBook.plot }}</p>
 </template>
 
