@@ -3,6 +3,7 @@ import users from "../pages/users.vue";
 import explore from "../pages/explore.vue";
 import library from "../pages/library.vue";
 import book from "../pages/book.vue";
+import book_form from "../pages/book_form.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: "/book/:bookId",
       name: "book",
       component: book,
+    },
+    {
+      path: "/newbook",
+      name: "new_book",
+      component: book_form,
     },
   ],
 });
