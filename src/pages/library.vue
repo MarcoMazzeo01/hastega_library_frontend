@@ -9,6 +9,24 @@ export default {
     };
   },
 
+  methods: {
+    saveBook(bookId) {
+      var userId = this.$cookies.get("userSession");
+
+      axios
+        .post("http://127.0.0.1:8000/api/library", {
+          userId: userId,
+          bookId: bookId,
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+  },
+
   mounted() {
     axios
       .get("http://127.0.0.1:8000/api/users/" + this.$route.params.userId)
@@ -44,7 +62,9 @@ export default {
       <router-link :to="{ name: 'book', params: { bookId: book.id } }">{{
         book.title
       }}</router-link>
-      <button @click="">Aggiungi a libreria</button>
+
+      <button @click="saveBook(book.id)">Aggiungi a libreria</button>
+
       <br />
       {{ book.author }}<br />
       {{ book.isbn }}<br />
