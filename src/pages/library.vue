@@ -28,8 +28,23 @@ export default {
   },
 
   mounted() {
+    const userIdCookie = this.$cookies.get("userSession");
+    const userIdParam = this.$route.params.userId;
+
+    //redirect to /users page if user isn't logged
+    if (userIdCookie === null) {
+      this.$router.push({ path: "/" });
+      return;
+    }
+
+    //redirect user to own library if attempting to check another user's library
+    if (userIdCookie !== userIdParam) {
+      this.$router.push({ path: `/library/${userIdCookie}` });
+    }
+
+    //api call to fetch users library
     axios
-      .get("http://127.0.0.1:8000/api/users/" + this.$route.params.userId)
+      .get("http://127.0.0.1:8000/api/users/" + userIdParam)
       .then((response) => {
         this.books = response.data.books;
 
