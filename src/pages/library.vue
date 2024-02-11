@@ -6,15 +6,16 @@ export default {
     return {
       title: "Libreria",
       books: "",
+      libraryAPI: "http://127.0.0.1:8000/api/library/",
     };
   },
 
   methods: {
     saveBook(bookId) {
-      var userId = this.$cookies.get("userSession");
+      const userId = this.$cookies.get("userSession");
 
       axios
-        .post("http://127.0.0.1:8000/api/library", {
+        .post(this.libraryAPI, {
           userId: userId,
           bookId: bookId,
         })
@@ -24,6 +25,14 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
+    },
+
+    removeBook(bookId) {
+      const userId = this.$route.params.userId;
+
+      axios.delete(this.libraryAPI + userId + "/" + bookId).then((response) => {
+        console.log(response);
+      });
     },
   },
 
@@ -43,29 +52,23 @@ export default {
     }
 
     //api call to fetch users library
-    axios
-      .get("http://127.0.0.1:8000/api/users/" + userIdParam)
-      .then((response) => {
-        this.books = response.data.books;
+    axios.get("http://127.0.0.1:8000/api/users/" + userIdParam).then((response) => {
+      this.books = response.data.books;
+      console.log(this.books);
 
-        this.books.forEach((element) => {
-          if (element.google_id) {
-            axios
-              .get(
-                "https://www.googleapis.com/books/v1/volumes/" +
-                  element.google_id
-              )
-              .then((gResponse) => {
-                var volumeInfo = gResponse.data.volumeInfo;
+      this.books.forEach((element) => {
+        if (element.google_id) {
+          axios.get("https://www.googleapis.com/books/v1/volumes/" + element.google_id).then((gResponse) => {
+            var volumeInfo = gResponse.data.volumeInfo;
 
-                element.title = volumeInfo.title;
-                element.author = volumeInfo.authors.toString();
-                element.isbn = volumeInfo.industryIdentifiers[1].identifier;
-                element.plot = volumeInfo.description;
-              });
-          }
-        });
+            element.title = volumeInfo.title;
+            element.author = volumeInfo.authors.toString();
+            element.isbn = volumeInfo.industryIdentifiers[1].identifier;
+            element.plot = volumeInfo.description;
+          });
+        }
       });
+    });
   },
 };
 </script>
@@ -74,16 +77,14 @@ export default {
   <h1>{{ title }}</h1>
   <ul v-for="book in this.books">
     <li>
-      <router-link :to="{ name: 'book', params: { bookId: book.id } }">{{
-        book.title
-      }}</router-link>
+      <router-link :to="{ name: 'book', params: { bookId: book.id } }">{{ book.title }}</router-link>
 
-      <button @click="saveBook(book.id)">Aggiungi a libreria</button>
+      <button @click="removeBook(book.id)">Rimuovi da libreria</button>
 
       <br />
       {{ book.author }}<br />
       {{ book.isbn }}<br />
-      {{ book.plot }}
+      <p v-html="book.plot"></p>
     </li>
   </ul>
 </template>
