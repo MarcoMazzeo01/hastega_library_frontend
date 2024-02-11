@@ -32,28 +32,20 @@ export default {
 
   props: ["bookData"],
   mounted() {
-    axios
-      .get("http://127.0.0.1:8000/api/books/" + this.$route.params.bookId)
-      .then((response) => {
-        this.currentBook = response.data;
+    axios.get("http://127.0.0.1:8000/api/books/" + this.$route.params.bookId).then((response) => {
+      this.currentBook = response.data;
 
-        if (this.currentBook.google_id) {
-          axios
-            .get(
-              "https://www.googleapis.com/books/v1/volumes/" +
-                this.currentBook.google_id
-            )
-            .then((gResponse) => {
-              var volumeInfo = gResponse.data.volumeInfo;
+      if (this.currentBook.google_id) {
+        axios.get("https://www.googleapis.com/books/v1/volumes/" + this.currentBook.google_id).then((gResponse) => {
+          var volumeInfo = gResponse.data.volumeInfo;
 
-              this.currentBook.title = volumeInfo.title;
-              this.currentBook.author = volumeInfo.authors.toString();
-              this.currentBook.isbn =
-                volumeInfo.industryIdentifiers[1].identifier;
-              this.currentBook.plot = volumeInfo.description;
-            });
-        }
-      });
+          this.currentBook.title = volumeInfo.title;
+          this.currentBook.author = volumeInfo.authors.toString();
+          this.currentBook.isbn = volumeInfo.industryIdentifiers[1].identifier;
+          this.currentBook.plot = volumeInfo.description;
+        });
+      }
+    });
   },
 };
 </script>
@@ -65,12 +57,10 @@ export default {
   {{ this.currentBook.author }} -
   <span
     >Letto {{ this.currentBook.reads }}
-    <span v-if="this.currentBook.reads > 1 || this.currentBook.reads == 0"
-      >volte</span
-    >
+    <span v-if="this.currentBook.reads > 1 || this.currentBook.reads == 0">volte</span>
     <span v-else>volta</span>
   </span>
-  <p>{{ this.currentBook.plot }}</p>
+  <p v-html="this.currentBook.plot"></p>
 </template>
 
 <style lang="scoped"></style>
