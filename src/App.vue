@@ -1,5 +1,5 @@
 <script>
-//import HelloWorld from "./components/HelloWorld.vue";
+import Navbar from "./components/Navbar.vue";
 
 export default {
   data() {
@@ -7,17 +7,18 @@ export default {
   },
 
   components: {
-    //HelloWorld,
+    Navbar,
   },
 };
 </script>
 
 <template>
-  <!-- <HelloWorld msg="Hello" /> -->
-  <router-link to="/explore">esplora</router-link> |
-  <router-link to="/">users</router-link> |
-  <router-link to="/newbook">nuovo libro</router-link>
-  <router-view></router-view>
+  <Navbar></Navbar>
+  <!-- <router-link to="/newbook">nuovo libro</router-link> -->
+
+  <div class="container-xl">
+    <router-view></router-view>
+  </div>
 </template>
 
 <style lang="scss"></style>
