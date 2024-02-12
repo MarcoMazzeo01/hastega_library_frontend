@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+import BookCard from "../components/BookCard.vue";
 
 export default {
   data() {
@@ -8,6 +9,10 @@ export default {
       books: "",
       libraryAPI: "http://127.0.0.1:8000/api/library/",
     };
+  },
+
+  components: {
+    BookCard,
   },
 
   methods: {
@@ -75,18 +80,12 @@ export default {
 
 <template>
   <h1>{{ title }}</h1>
-  <ul v-for="book in this.books">
-    <li>
-      <router-link :to="{ name: 'book', params: { bookId: book.id } }">{{ book.title }}</router-link>
 
-      <button @click="removeBook(book.id)">Rimuovi da libreria</button>
-
-      <br />
-      {{ book.author }}<br />
-      {{ book.isbn }}<br />
-      <p v-html="book.plot"></p>
-    </li>
-  </ul>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col" v-for="book in this.books">
+      <BookCard :bookData="book"></BookCard>
+    </div>
+  </div>
 </template>
 
 <style lang="scoped"></style>
