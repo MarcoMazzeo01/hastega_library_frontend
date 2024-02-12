@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+import BookCard from "../components/BookCard.vue";
 
 export default {
   data() {
@@ -7,6 +8,10 @@ export default {
       title: "Esplora",
       response: "",
     };
+  },
+
+  components: {
+    BookCard,
   },
 
   methods: {
@@ -56,15 +61,7 @@ export default {
 
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <div class="col" v-for="book in this.response">
-      <div class="card">
-        <!-- <img src="..." class="card-img-top" alt="..." /> -->
-        <div class="card-body">
-          <h5 class="card-title">{{ book.title }}</h5>
-          <h6 class="card-subtitle mb-2 text-body-secondary">{{ book.author }}</h6>
-          <p class="card-text" v-html="book.plot"></p>
-          <a :href="`/book/${book.id}`" class="btn btn-primary">Scopri di più</a>
-        </div>
-      </div>
+      <BookCard :bookData="book"></BookCard>
     </div>
   </div>
 </template>
