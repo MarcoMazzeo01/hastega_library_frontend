@@ -38,12 +38,10 @@ export default {
 <template>
   <h1>{{ title }}</h1>
 
-  <ul v-for="user in this.users">
-    <li>
-      <router-link :to="{ name: 'library', params: { userId: user.id } }" @click="login(user.id)"
-        >{{ user.first_name }} {{ user.last_name }}</router-link
-      >
-    </li>
+  <ul class="list-group" v-for="user in this.users">
+    <router-link :to="{ name: 'library', params: { userId: user.id } }" @click="login(user.id)">
+      <li class="list-group-item text-decoration-none">{{ user.first_name }} {{ user.last_name }}</li>
+    </router-link>
   </ul>
 </template>
 
