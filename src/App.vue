@@ -14,7 +14,6 @@ export default {
 
 <template>
   <Navbar></Navbar>
-  <!-- <router-link to="/newbook">nuovo libro</router-link> -->
 
   <div class="container-xl">
     <router-view></router-view>
