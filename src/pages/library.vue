@@ -15,31 +15,7 @@ export default {
     BookCard,
   },
 
-  methods: {
-    saveBook(bookId) {
-      const userId = this.$cookies.get("userSession");
-
-      axios
-        .post(this.libraryAPI, {
-          userId: userId,
-          bookId: bookId,
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-
-    removeBook(bookId) {
-      const userId = this.$route.params.userId;
-
-      axios.delete(this.libraryAPI + userId + "/" + bookId).then((response) => {
-        console.log(response);
-      });
-    },
-  },
+  methods: {},
 
   mounted() {
     const userIdCookie = this.$cookies.get("userSession");
