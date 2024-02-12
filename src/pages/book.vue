@@ -1,23 +1,20 @@
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
-      title: "Libro",
       currentBook: "",
+      libraryAPI: "http://127.0.0.1:8000/api/library/",
     };
   },
-
-  // components: {
-  //   MyComponent,
-  // },
 
   methods: {
     saveBook(bookId) {
       var userId = this.$cookies.get("userSession");
 
       axios
-        .post("http://127.0.0.1:8000/api/library", {
+        .post(this.libraryAPI, {
           userId: userId,
           bookId: bookId,
         })
@@ -27,6 +24,14 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
+    },
+
+    removeBook(bookId) {
+      const userId = this.$cookies.get("userSession");
+
+      axios.delete(this.libraryAPI + userId + "/" + bookId).then((response) => {
+        console.log(response);
+      });
     },
   },
 
@@ -51,15 +56,26 @@ export default {
 </script>
 
 <template>
-  <h1>{{ title }}</h1>
-  <h3>{{ this.currentBook.title }}</h3>
-  <button @click="saveBook(this.currentBook.id)">Aggiungi a libreria</button>
-  {{ this.currentBook.author }} -
-  <span
-    >Letto {{ this.currentBook.reads }}
-    <span v-if="this.currentBook.reads > 1 || this.currentBook.reads == 0">volte</span>
-    <span v-else>volta</span>
-  </span>
+  <!-- book title and author -->
+  <h2 class="mt-4 me-1 d-inline">{{ this.currentBook.title }}</h2>
+  <h5 class="d-inline">| {{ this.currentBook.author }}</h5>
+
+  <!-- save, remove book and reads -->
+  <div>
+    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+      <button type="button" class="btn btn-primary" @click="saveBook(this.currentBook.id)">Salva</button>
+      <button type="button" class="btn btn-danger" @click="removeBook(this.currentBook.id)">Rimuovi</button>
+    </div>
+
+    <h6 class="d-inline">
+      | Letto <strong>{{ this.currentBook.reads }}</strong>
+      <span v-if="this.currentBook.reads > 1 || this.currentBook.reads == 0"> volte</span>
+      <span v-else> volta</span>
+    </h6>
+  </div>
+
+  <!-- plot -->
+  <hr />
   <p v-html="this.currentBook.plot"></p>
 </template>
 
