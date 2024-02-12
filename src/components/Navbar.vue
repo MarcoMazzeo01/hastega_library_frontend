@@ -5,7 +5,7 @@ export default {
   data() {
     return {
       users: store.users,
-      currentUser: 0,
+      currentUser: this.$cookies.get("userSession") || 0,
     };
   },
 
@@ -23,7 +23,6 @@ export default {
   },
 
   created() {
-    this.currentUser = 0;
     axios.get("http://127.0.0.1:8000/api/users").then((response) => {
       store.users = response.data;
       this.users = store.users;
@@ -59,6 +58,11 @@ export default {
           <!-- explore -->
           <li class="nav-item">
             <a class="nav-link" href="/explore">Esplora</a>
+          </li>
+
+          <!-- create new book -->
+          <li class="nav-item">
+            <a class="nav-link" href="/newbook">Carica</a>
           </li>
 
           <!-- users & logout -->
