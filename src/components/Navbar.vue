@@ -51,7 +51,7 @@ export default {
           <!-- profile -->
           <li class="nav-item">
             <router-link class="text-decoration-none" :to="{ name: 'library', params: { userId: this.currentUser } }"
-              ><span class="nav-link" aria-current="page">Profilo</span></router-link
+              ><span class="nav-link" aria-current="page">Libreria</span></router-link
             >
           </li>
 
@@ -88,10 +88,10 @@ export default {
         </ul>
 
         <!-- search bar -->
-        <form class="d-flex" role="search">
+        <!-- <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
           <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        </form> -->
       </div>
     </div>
   </nav>
